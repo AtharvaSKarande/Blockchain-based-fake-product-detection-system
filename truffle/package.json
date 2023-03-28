@@ -1,7 +1,7 @@
 {
-  "name": "truffle-project",
+  "name": "product-chain-project",
   "version": "0.1.0",
-  "description": "Truffle project with SimpleStorage contract",
+  "description": "Blockchain based fake product detection project with smart contract and react.",
   "scripts": {
     "test": "truffle test"
   },
