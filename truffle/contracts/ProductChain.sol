@@ -11,7 +11,6 @@ contract ProductChain {
         string emailId;
         string contactNo;
         string website;
-        string[] products;
     }
 
     // Struct Product.
@@ -44,6 +43,14 @@ contract ProductChain {
     string LOG_CREATE_PRODUCT = "CREATE_PRODUCT";
     string LOG_TRANSFER_OWNERSHIP = "TRANSFER_OWNERSHIP";
 
+    /* API Response codes */
+    string HTTP_RESPONSE_SUCCESS = "200";
+    string HTTP_RESPONSE_CREATED = "201";
+    string HTTP_RESPONSE_ERROR = "400";
+    string HTTP_RESPONSE_UNAUTHORISED = "403";
+    string HTTP_RESPONSE_NOT_FOUND = "404";
+    string HTTP_RESPONSE_CONFLICT = "409";
+
     /* APIs */
 
     // Company SignUp API.
@@ -51,7 +58,6 @@ contract ProductChain {
         string memory emailId, string memory contactNo, string memory website) public {
         
         if(strEqual(companyList[companyKey].name, "")){
-            string[] memory emptyList;
 
             Company memory newCompany = Company({
                 name: name,
@@ -59,16 +65,18 @@ contract ProductChain {
                 isVerified: isVerified,
                 emailId : emailId,
                 contactNo: contactNo,
-                website: website,
-                products: emptyList
+                website: website
             });
 
             companyList[companyKey] = newCompany;
             companyAddresses.push(companyKey);
+
+            userSignUp(companyKey, name);
         }
     }
 
     // User SignUp API.
+    event e_userSignUp(string, address, string);
     function userSignUp(address userKey, string memory name) public {
         
         if(strEqual(userList[userKey].name, "")){
@@ -81,6 +89,10 @@ contract ProductChain {
 
             userList[userKey] = newUser;
             userAddresses.push(userKey);
+            emit e_userSignUp(HTTP_RESPONSE_CREATED, userKey, "User Created.");
+        }
+        else{
+            emit e_userSignUp(HTTP_RESPONSE_CONFLICT, userKey, "User Already exist.");
         }
     }
 
@@ -113,13 +125,8 @@ contract ProductChain {
         return productList[productId];
     }
 
-    // Get all products API. (Company)
-    function getAllCompanyProducts(address companyKey) public view returns(string[] memory){
-        return companyList[companyKey].products;
-    }
-
-    // Get all products API. (User)
-    function getAllUserProducts(address userKey) public view returns(string[] memory){
+    // Get all products API.
+    function getAllProducts(address userKey) public view returns(string[] memory){
         return userList[userKey].products;
     }
 
@@ -144,15 +151,44 @@ contract ProductChain {
         });
 
         productList[uidHash] = newProduct;
-        companyList[companyKey].products.push(uidHash);
+        userList[companyKey].products.push(uidHash);
     }
 
-    // Ownership transter API.
-    function transterOwnership(string memory productKey, address user1Key, address user2Key) public {
-        // @@
+    // Ownership transfer API.
+    event e_transferOwnership(string, string);
+    function transferOwnership(string memory productKey, address user1Key, address user2Key) public{
+        if(strEqual(userList[user1Key].name, "")){
+            emit e_transferOwnership(HTTP_RESPONSE_ERROR, "User 1 does not exist.");
+        }
+        else if(strEqual(userList[user1Key].name, "")){
+            emit e_transferOwnership(HTTP_RESPONSE_ERROR, "User 2 does not exist.");
+        }
+        else if(productList[productKey].ownerKey == user1Key){
+
+            productList[productKey].ownerKey = user2Key;
+            userList[user2Key].products.push(productKey);
+            uint len = userList[user1Key].products.length;
+            uint j=0;
+            string[] memory tempProdList = new string[](len-1);
+
+            for(uint i=0;i<len;i++){
+                if(!strEqual(productKey, userList[user1Key].products[i])){
+                    tempProdList[j++] = userList[user1Key].products[i];
+                }
+            }
+            userList[user1Key].products = tempProdList;
+
+            string memory transferLog = getLogStringFrom(productList[productKey].logs.length, LOG_TRANSFER_OWNERSHIP, user1Key, user2Key);
+            productList[productKey].logs.push(transferLog);
+
+            emit e_transferOwnership(HTTP_RESPONSE_SUCCESS, "Product ownership trasnfered.");
+        }
+        else{
+            emit e_transferOwnership(HTTP_RESPONSE_UNAUTHORISED, "User 1 is not the owner of a given product.");
+        }
     }
 
-    function getLogStringFrom(uint8 logCount, string memory logType, address user1, address user2) public pure returns(string memory){
+    function getLogStringFrom(uint logCount, string memory logType, address user1, address user2) public pure returns(string memory){
         string memory logStr = uintToStr(logCount);
         logStr = string.concat(logStr, "$");
         logStr = string.concat(logStr, logType);
@@ -196,20 +232,20 @@ contract ProductChain {
         string memory ans;
         uint256 u;
 
-        if(num == 0) return '0';
+        if(num == 0) return "0";
         while(num > 0){
             u = num % 10;
             num = num / 10;
-            if(u == 0) ans = string.concat(ans, '0');
-            if(u == 1) ans = string.concat(ans, '1');
-            if(u == 2) ans = string.concat(ans, '2');
-            if(u == 3) ans = string.concat(ans, '3');
-            if(u == 4) ans = string.concat(ans, '4');
-            if(u == 5) ans = string.concat(ans, '5');
-            if(u == 6) ans = string.concat(ans, '6');
-            if(u == 7) ans = string.concat(ans, '7');
-            if(u == 8) ans = string.concat(ans, '8');
-            if(u == 9) ans = string.concat(ans, '9');
+            if(u == 0) ans = string.concat(ans, "0");
+            if(u == 1) ans = string.concat(ans, "1");
+            if(u == 2) ans = string.concat(ans, "2");
+            if(u == 3) ans = string.concat(ans, "3");
+            if(u == 4) ans = string.concat(ans, "4");
+            if(u == 5) ans = string.concat(ans, "5");
+            if(u == 6) ans = string.concat(ans, "6");
+            if(u == 7) ans = string.concat(ans, "7");
+            if(u == 8) ans = string.concat(ans, "8");
+            if(u == 9) ans = string.concat(ans, "9");
         }
         
         return ans;
