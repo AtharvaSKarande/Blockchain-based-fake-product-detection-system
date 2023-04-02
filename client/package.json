@@ -1,5 +1,5 @@
 {
-  "name": "truffle-client",
+  "name": "product-chain",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,10 @@
     "start": "webpack serve"
   },
   "dependencies": {
+    "bootstrap": "^5.2.3",
+    "file-loader": "^6.2.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
     "web3": "^1.8.2"
   },
