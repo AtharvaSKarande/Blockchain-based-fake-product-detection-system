@@ -1,5 +1,6 @@
 import React from "react";
 import "../css/Home.css";
+import Layouts from "../components/Constants";
 
 const Home = ({ signedUserKey, isCompany, updateLayout }) => {
   const SearchBar = () => {
@@ -81,14 +82,12 @@ const Home = ({ signedUserKey, isCompany, updateLayout }) => {
     );
   };
 
-  const userLoginClick = () => {
-    updateLayout(1);
-  };
+  const userLoginClick = () => {};
 
   const companyLoginClick = () => {};
 
   const signUpClick = () => {
-    updateLayout(1);
+    updateLayout(Layouts.SIGN_UP_LAYOUT);
   };
 
   return (
