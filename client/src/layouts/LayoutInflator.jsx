@@ -1,9 +1,8 @@
 import React from "react";
-import "../css/Inflator.css";
 import { useState } from "react";
 import useEth from "../contexts/EthContext/useEth";
 import logo from "../../public/images/logo.png";
-import Layouts from "../components/Constants";
+import Layouts from "../Constants/Constants";
 
 import Home from "./Home";
 import Signup from "./Signup";
@@ -13,9 +12,10 @@ import Products from "./Products";
 
 const LayoutInflator = () => {
   const { state } = useEth();
-  const [layout, setLayout] = useState(0);
+  const [layout, setLayout] = useState(Layouts.HOME_LAYOUT);
   const [signedUserKey, setSignedUserKey] = useState("null"); //@@ null
-  const [isCompany, setIsCompany] = useState("false");
+  const [isCompany, setIsCompany] = useState("false"); //@@ false
+  const [productKey, setProductKey] = useState(null);
 
   const updateLayout = (newLayout) => {
     setLayout(newLayout);
@@ -62,7 +62,7 @@ const LayoutInflator = () => {
             <button
               type="button"
               className="btn btn-outline-danger mx-2"
-              onClick={signOutClick}
+              onClick={logOutClick}
             >
               Log Out
             </button>
@@ -76,9 +76,30 @@ const LayoutInflator = () => {
     return (
       <div>
         <button className="fab-back" onClick={backButtonClicked}>
-          <i class="bi bi-arrow-left-circle"></i>
+          <i className="bi bi-arrow-left-circle"></i>
         </button>
       </div>
+    );
+  };
+
+  const SearchBar = () => {
+    return (
+      <form onSubmit={searchProductClicked}>
+        <div className="search-box navbar ">
+          <i className="bi bi-search mx-3"></i>
+          <input
+            className="search-input"
+            placeholder="Enter the product key to check if product is genuine..."
+          />
+          <button
+            type="submit"
+            className="btn btn-dark mx-2"
+            onClick={searchProductClicked}
+          >
+            Check
+          </button>
+        </div>
+      </form>
     );
   };
 
@@ -97,12 +118,17 @@ const LayoutInflator = () => {
     );
   };
 
-  const signOutClick = () => {
+  const logOutClick = () => {
     setSignedUserKey(null);
+    setLayout(Layouts.HOME_LAYOUT);
   };
 
   const backButtonClicked = () => {
     setLayout(Layouts.HOME_LAYOUT);
+  };
+
+  const searchProductClicked = (e) => {
+    updateLayout(Layouts.PRODUCT_DETAILS_LAYOUT);
   };
 
   return (
@@ -113,6 +139,10 @@ const LayoutInflator = () => {
       <Header />
       {/* Back Button */}
       {layout != Layouts.HOME_LAYOUT && <BackButton />}
+      {/* Search Bar */}
+      {signedUserKey &&
+        (layout == Layouts.HOME_LAYOUT ||
+          layout == Layouts.PRODUCT_DETAILS_LAYOUT) && <SearchBar />}
 
       {/* Layouts */}
       <div>
@@ -127,7 +157,7 @@ const LayoutInflator = () => {
           <Signup updateLayout={updateLayout} />
         )}
         {layout == Layouts.PRODUCT_DETAILS_LAYOUT && (
-          <ProductDetails updateLayout={updateLayout} />
+          <ProductDetails productKey={productKey} updateLayout={updateLayout} />
         )}
         {layout == Layouts.ADD_PRODUCT_LAYOUT && (
           <AddProduct updateLayout={updateLayout} />

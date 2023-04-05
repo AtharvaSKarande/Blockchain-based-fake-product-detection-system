@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import "../css/SignUp.css";
 
 const Signup = ({ updateLayout }) => {
   const [isCompany, setIsCompany] = useState(false);
@@ -134,8 +133,6 @@ const Signup = ({ updateLayout }) => {
   const isCompanyCheckBoxClicked = (event) => {
     setIsCompany(event.target.checked);
   };
-
-  const verifyEmailClicked = () => {};
 
   const signUpClick = () => {};
 

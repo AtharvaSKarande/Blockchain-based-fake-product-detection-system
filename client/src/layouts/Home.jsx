@@ -1,29 +1,7 @@
 import React from "react";
-import "../css/Home.css";
-import Layouts from "../components/Constants";
+import Layouts from "../Constants/Constants";
 
 const Home = ({ signedUserKey, isCompany, updateLayout }) => {
-  const SearchBar = () => {
-    return (
-      <form onSubmit={searchProductClicked}>
-        <div className="search-box navbar ">
-          <i className="bi bi-search mx-3"></i>
-          <input
-            className="search-input"
-            placeholder="Enter the product key here to check if product is genuine..."
-          ></input>
-          <button
-            type="submit"
-            className="btn btn-dark mx-2"
-            onClick={searchProductClicked}
-          >
-            Check
-          </button>
-        </div>
-      </form>
-    );
-  };
-
   const Description = () => {
     return (
       <div>
@@ -114,10 +92,6 @@ const Home = ({ signedUserKey, isCompany, updateLayout }) => {
     updateLayout(Layouts.SIGN_UP_LAYOUT);
   };
 
-  const searchProductClicked = () => {
-    updateLayout(Layouts.PRODUCT_DETAILS_LAYOUT);
-  };
-
   const seeAllProductsClicked = () => {
     updateLayout(Layouts.PRODUCTS_LAYOUT);
   };
@@ -127,17 +101,12 @@ const Home = ({ signedUserKey, isCompany, updateLayout }) => {
   };
 
   return (
-    <div>
-      {/* Search bar */}
-      {signedUserKey && <SearchBar />}
+    <div className="description">
+      {/* Description */}
+      <Description />
 
-      <div className="description">
-        {/* Description */}
-        <Description />
-
-        {/* Buttons */}
-        {signedUserKey ? <BtnsForSignedUser /> : <BtnsForNotSignedUser />}
-      </div>
+      {/* Buttons */}
+      {signedUserKey ? <BtnsForSignedUser /> : <BtnsForNotSignedUser />}
     </div>
   );
 };

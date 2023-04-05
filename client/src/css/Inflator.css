@@ -59,6 +59,21 @@
   position: absolute;
 }
 
+.search-box {
+  font-size: x-large;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  width: 50%;
+  margin: 2% auto 2% auto;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 80%;
+}
+
 .footer {
   position: fixed;
   left: 0;

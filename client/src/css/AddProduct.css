@@ -1,0 +1,23 @@
+.input-add-product {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 1%;
+  margin: 2.5% 10% auto 10%;
+  color: #343a40;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.add-product-input {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 1%;
+  margin: 1%;
+  color: #343a40;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.label {
+  font-size: medium;
+  margin-left: 1%;
+}
