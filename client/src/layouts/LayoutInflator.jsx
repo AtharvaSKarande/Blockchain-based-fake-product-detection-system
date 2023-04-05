@@ -14,8 +14,8 @@ import Products from "./Products";
 const LayoutInflator = () => {
   const { state } = useEth();
   const [layout, setLayout] = useState(0);
-  const [signedUserKey, setSignedUserKey] = useState(null);
-  const [isCompany, setIsCompany] = useState(false);
+  const [signedUserKey, setSignedUserKey] = useState("null"); //@@ null
+  const [isCompany, setIsCompany] = useState("false");
 
   const updateLayout = (newLayout) => {
     setLayout(newLayout);
@@ -61,13 +61,23 @@ const LayoutInflator = () => {
           {signedUserKey && (
             <button
               type="button"
-              className="btn btn-outline-danger mx-3"
+              className="btn btn-outline-danger mx-2"
               onClick={signOutClick}
             >
               Log Out
             </button>
           )}
         </nav>
+      </div>
+    );
+  };
+
+  const BackButton = () => {
+    return (
+      <div>
+        <button className="fab-back" onClick={backButtonClicked}>
+          <i class="bi bi-arrow-left-circle"></i>
+        </button>
       </div>
     );
   };
@@ -91,12 +101,18 @@ const LayoutInflator = () => {
     setSignedUserKey(null);
   };
 
+  const backButtonClicked = () => {
+    setLayout(Layouts.HOME_LAYOUT);
+  };
+
   return (
     <div className="row g-0 container-fluid">
       {/* Connection with smart contract. */}
       <SmartContractConnectionState />
       {/* Header */}
       <Header />
+      {/* Back Button */}
+      {layout != Layouts.HOME_LAYOUT && <BackButton />}
 
       {/* Layouts */}
       <div>

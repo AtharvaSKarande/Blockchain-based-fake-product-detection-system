@@ -42,10 +42,21 @@
 .header {
   font-weight: bolder;
   font-style: italic;
-  font-family: Cambria;
   justify-content: center;
   width: 100%;
   white-space: nowrap;
+}
+
+.fab-back {
+  justify-content: center;
+  display: flex;
+  border-color: #00000000;
+  background-color: #a3b9ff;
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  margin: 0.75%;
+  position: absolute;
 }
 
 .footer {

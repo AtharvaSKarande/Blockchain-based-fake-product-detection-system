@@ -4,7 +4,24 @@ import Layouts from "../components/Constants";
 
 const Home = ({ signedUserKey, isCompany, updateLayout }) => {
   const SearchBar = () => {
-    return <div>{signedUserKey != null && <h3>Search bar TBD</h3>}</div>;
+    return (
+      <form onSubmit={searchProductClicked}>
+        <div className="search-box navbar ">
+          <i className="bi bi-search mx-3"></i>
+          <input
+            className="search-input"
+            placeholder="Enter the product key here to check if product is genuine..."
+          ></input>
+          <button
+            type="submit"
+            className="btn btn-dark mx-2"
+            onClick={searchProductClicked}
+          >
+            Check
+          </button>
+        </div>
+      </form>
+    );
   };
 
   const Description = () => {
@@ -18,16 +35,16 @@ const Home = ({ signedUserKey, isCompany, updateLayout }) => {
           style={{ textAlign: "justify" }}
         >
           <h5>
-            lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem
-            ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem
-            ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem
-            ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem
-            ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem
-            ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem
-            ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem
-            ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem
-            ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem
-            ipsum
+            lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
+            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+            lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
+            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+            lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
+            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+            lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
+            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+            lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
+            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
           </h5>
         </div>
       </div>
@@ -69,15 +86,22 @@ const Home = ({ signedUserKey, isCompany, updateLayout }) => {
   const BtnsForSignedUser = () => {
     return (
       <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-dark mx-4 my-4">
-          Name 1
+        <button
+          type="button"
+          className="btn btn-dark mx-5 my-2"
+          onClick={seeAllProductsClicked}
+        >
+          See all owned products
         </button>
-        <button type="button" className="btn btn-dark mx-4 my-4">
-          Name 2
-        </button>
-        <button type="button" className="btn btn-dark mx-4 my-4">
-          Name 3
-        </button>
+        {isCompany && (
+          <button
+            type="button"
+            className="btn btn-dark mx-5 my-2"
+            onClick={addNewProductClicked}
+          >
+            Add a new product
+          </button>
+        )}
       </div>
     );
   };
@@ -90,10 +114,22 @@ const Home = ({ signedUserKey, isCompany, updateLayout }) => {
     updateLayout(Layouts.SIGN_UP_LAYOUT);
   };
 
+  const searchProductClicked = () => {
+    updateLayout(Layouts.PRODUCT_DETAILS_LAYOUT);
+  };
+
+  const seeAllProductsClicked = () => {
+    updateLayout(Layouts.PRODUCTS_LAYOUT);
+  };
+
+  const addNewProductClicked = () => {
+    updateLayout(Layouts.ADD_PRODUCT_LAYOUT);
+  };
+
   return (
     <div>
       {/* Search bar */}
-      <SearchBar />
+      {signedUserKey && <SearchBar />}
 
       <div className="description">
         {/* Description */}

@@ -1,7 +1,22 @@
+.search-box {
+  font-size: x-large;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  width: 50%;
+  margin: 3% auto 2% auto;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 80%;
+}
+
 .description {
   background-color: rgba(255, 255, 255, 0.3);
   padding: 2%;
-  margin: 5% 10% 7% 10%;
+  margin: 2% 10% 2% 10%;
   color: #343a40;
   font-weight: bold;
   font-size: 20px;

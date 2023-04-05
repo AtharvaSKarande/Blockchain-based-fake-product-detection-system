@@ -5,6 +5,12 @@ import "../css/SignUp.css";
 const Signup = ({ updateLayout }) => {
   const [isCompany, setIsCompany] = useState(false);
 
+  const SignUpTitle = () => {
+    return (
+      <h2 className="d-flex justify-content-center fw-bold mt-3 ">Sign Up</h2>
+    );
+  };
+
   const UserSignUpForm = () => {
     return (
       <div className="input-form-user">
@@ -131,17 +137,12 @@ const Signup = ({ updateLayout }) => {
 
   const verifyEmailClicked = () => {};
 
-  const signUpClick = () => {
-    updateLayout(0);
-    console.log("Sign up Clicked");
-  };
+  const signUpClick = () => {};
 
   return (
     <div className="signup-input-box">
-      <h2 className="d-flex justify-content-center fw-bold mt-3 ">Sign Up</h2>
-
+      <SignUpTitle />
       {isCompany ? <CompanySignUpForm /> : <UserSignUpForm />}
-
       <CompanyCheckbox />
       <SignupBtn />
     </div>
