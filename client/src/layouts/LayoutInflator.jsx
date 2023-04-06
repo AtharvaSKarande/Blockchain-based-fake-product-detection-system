@@ -120,7 +120,10 @@ const LayoutInflator = () => {
       {signedUserKey &&
         (layout == Layouts.HOME_LAYOUT ||
           layout == Layouts.PRODUCT_DETAILS_LAYOUT) && (
-          <SearchBar updateLayout={updateLayout} />
+          <SearchBar
+            updateLayout={updateLayout}
+            setProductKey={setProductKey}
+          />
         )}
 
       {/* Layouts */}

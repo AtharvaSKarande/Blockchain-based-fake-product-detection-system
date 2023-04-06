@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layouts from "../Constants/Layout";
 
-const SearchBar = ({ updateLayout }) => {
+const SearchBar = ({ updateLayout, setProductKey }) => {
   const [searchText, setSearchText] = useState("");
 
   const handleSearchTextChange = (e) => {
@@ -10,6 +10,7 @@ const SearchBar = ({ updateLayout }) => {
 
   const searchProductClicked = (e) => {
     e.preventDefault();
+    setProductKey(searchText);
     updateLayout(Layouts.PRODUCT_DETAILS_LAYOUT);
   };
 
@@ -19,7 +20,7 @@ const SearchBar = ({ updateLayout }) => {
         <i className="bi bi-search mx-3"></i>
         <input
           className="search-input"
-          placeholder="Enter the product key to check if product is genuine..."
+          placeholder="Enter product key here..."
           onChange={handleSearchTextChange}
         />
         <button
