@@ -1,5 +1,5 @@
 import React from "react";
-import Layouts from "../Constants/Constants";
+import Layouts from "../Constants/Layout";
 
 const Home = ({ signedUserKey, isCompany, updateLayout }) => {
   const Description = () => {

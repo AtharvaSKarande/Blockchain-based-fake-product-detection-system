@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import useEth from "../contexts/EthContext/useEth";
 import logo from "../../public/images/logo.png";
-import Layouts from "../Constants/Constants";
+import Layouts from "../Constants/Layout";
 
 import Home from "./Home";
 import Signup from "./Signup";
@@ -10,11 +10,13 @@ import ProductDetails from "./ProductDetails";
 import AddProduct from "./AddProduct";
 import Products from "./Products";
 
+import SearchBar from "../Components/SearchBar";
+
 const LayoutInflator = () => {
   const { state } = useEth();
   const [layout, setLayout] = useState(Layouts.HOME_LAYOUT);
-  const [signedUserKey, setSignedUserKey] = useState("null"); //@@ null
-  const [isCompany, setIsCompany] = useState("false"); //@@ false
+  const [signedUserKey, setSignedUserKey] = useState(null);
+  const [isCompany, setIsCompany] = useState(false);
   const [productKey, setProductKey] = useState(null);
 
   const updateLayout = (newLayout) => {
@@ -82,27 +84,6 @@ const LayoutInflator = () => {
     );
   };
 
-  const SearchBar = () => {
-    return (
-      <form onSubmit={searchProductClicked}>
-        <div className="search-box navbar ">
-          <i className="bi bi-search mx-3"></i>
-          <input
-            className="search-input"
-            placeholder="Enter the product key to check if product is genuine..."
-          />
-          <button
-            type="submit"
-            className="btn btn-dark mx-2"
-            onClick={searchProductClicked}
-          >
-            Check
-          </button>
-        </div>
-      </form>
-    );
-  };
-
   const Footer = () => {
     return (
       <div>
@@ -127,10 +108,6 @@ const LayoutInflator = () => {
     setLayout(Layouts.HOME_LAYOUT);
   };
 
-  const searchProductClicked = (e) => {
-    updateLayout(Layouts.PRODUCT_DETAILS_LAYOUT);
-  };
-
   return (
     <div className="row g-0 container-fluid">
       {/* Connection with smart contract. */}
@@ -142,7 +119,9 @@ const LayoutInflator = () => {
       {/* Search Bar */}
       {signedUserKey &&
         (layout == Layouts.HOME_LAYOUT ||
-          layout == Layouts.PRODUCT_DETAILS_LAYOUT) && <SearchBar />}
+          layout == Layouts.PRODUCT_DETAILS_LAYOUT) && (
+          <SearchBar updateLayout={updateLayout} />
+        )}
 
       {/* Layouts */}
       <div>
