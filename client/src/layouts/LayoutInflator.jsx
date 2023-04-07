@@ -19,7 +19,8 @@ const LayoutInflator = () => {
   const [isCompany, setIsCompany] = useState(false);
   const [productKey, setProductKey] = useState(null);
 
-  const updateLayout = (newLayout) => {
+  const updateLayout = (newLayout, prodKey = null) => {
+    if (prodKey) setProductKey(prodKey);
     setLayout(newLayout);
   };
 
@@ -105,6 +106,7 @@ const LayoutInflator = () => {
   };
 
   const backButtonClicked = () => {
+    window.location.reload();
     setLayout(Layouts.HOME_LAYOUT);
   };
 
@@ -139,13 +141,20 @@ const LayoutInflator = () => {
           <Signup updateLayout={updateLayout} />
         )}
         {layout == Layouts.PRODUCT_DETAILS_LAYOUT && (
-          <ProductDetails productKey={productKey} updateLayout={updateLayout} />
+          <ProductDetails
+            signedUserKey={signedUserKey}
+            productKey={productKey}
+            updateLayout={updateLayout}
+          />
         )}
         {layout == Layouts.ADD_PRODUCT_LAYOUT && (
-          <AddProduct updateLayout={updateLayout} />
+          <AddProduct
+            signedUserKey={signedUserKey}
+            updateLayout={updateLayout}
+          />
         )}
         {layout == Layouts.PRODUCTS_LAYOUT && (
-          <Products updateLayout={updateLayout} />
+          <Products signedUserKey={signedUserKey} updateLayout={updateLayout} />
         )}
       </div>
 

@@ -4,7 +4,7 @@ import LogCard from "../Components/LogCard";
 import Remarks from "../Constants/Remarks";
 import OwnerRemarks from "../Constants/OwnerRemarks";
 
-const ProductDetails = ({ productKey, updateLayout }) => {
+const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
   const DEFAULT_STR = "Fetching...";
 
   const [remark, setRemark] = useState(Remarks.UNKNOWN);
@@ -36,67 +36,90 @@ const ProductDetails = ({ productKey, updateLayout }) => {
     >
       <div className="subtitle">Product Key : {productKey}</div>
 
-      <hr className="line" />
+      {remark != Remarks.FAKE ? (
+        <div>
+          <hr className="line" />
 
-      <div className="d-flex">
-        <div className="col detail">
-          <label className="label">Remark</label>
-          <div className="inner-detail">{remark}</div>
-        </div>
+          <div className="d-flex">
+            <div className="col detail">
+              <label className="label">Remark</label>
+              <div className="inner-detail">{remark}</div>
+            </div>
 
-        <div className="col detail">
-          <label className="label">Ownership</label>
-          <div className="inner-detail">{ownerRemark}</div>
-        </div>
+            <div className="col detail">
+              <label className="label">Ownership</label>
+              <div className="inner-detail">{ownerRemark}</div>
+            </div>
 
-        <div className="col detail">
-          <label className="label">Manufactured by</label>
-          <div className="inner-detail">{productCompanyName}</div>
-        </div>
-      </div>
+            <div className="col detail">
+              <label className="label">Manufactured by</label>
+              <div className="inner-detail">{productCompanyName}</div>
+            </div>
+          </div>
 
-      <hr className="line" />
+          <hr className="line" />
 
-      <div className="d-flex">
-        <div className="col detail">
-          <label className="label">Product Name</label>
-          <div className="inner-detail">{productName}</div>
-        </div>
+          <div className="d-flex">
+            <div className="col detail">
+              <label className="label">Product Name</label>
+              <div className="inner-detail">{productName}</div>
+            </div>
 
-        <div className="col detail">
-          <label className="label">Product UID (given by company)</label>
-          <div className="inner-detail">{productUID}</div>
-        </div>
+            <div className="col detail">
+              <label className="label">Product UID (given by company)</label>
+              <div className="inner-detail">{productUID}</div>
+            </div>
 
-        <div className="col detail">
-          <label className="label">Product type</label>
-          <div className="inner-detail">
-            {productType == "" ? "Not specified" : productType}
+            <div className="col detail">
+              <label className="label">Product type</label>
+              <div className="inner-detail">
+                {productType == "" ? "Not specified" : productType}
+              </div>
+            </div>
+          </div>
+
+          <hr className="line" />
+
+          <div className="detail" style={{ fontSize: "medium" }}>
+            <label className="label">Product description</label>
+            <div className="inner-detail" style={{ textAlign: "justify" }}>
+              {productDesc}
+            </div>
+          </div>
+
+          <hr className="line" />
+
+          <div className="detail" style={{ fontSize: "medium" }}>
+            <label className="label">Logs</label>
+            <div className="inner-detail log-box">
+              {productLogs.length
+                ? productLogs.map((logStr) => {
+                    return <LogCard logStr={logStr} />;
+                  })
+                : "No logs to display!"}
+            </div>
           </div>
         </div>
-      </div>
-
-      <hr className="line" />
-
-      <div className="detail" style={{ fontSize: "medium" }}>
-        <label className="label">Product description</label>
-        <div className="inner-detail" style={{ textAlign: "justify" }}>
-          {productDesc}
+      ) : (
+        <div className="inner-detail">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="200"
+            height="200"
+            fill="#a00"
+            class="bi bi-exclamation-circle"
+            viewBox="0 0 16 16"
+          >
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+          </svg>
+          <hr className="line" />
+          <h4>
+            This product key does not exist in Product Chain blockchain
+            database. This product is either not registered or fake.
+          </h4>
         </div>
-      </div>
-
-      <hr className="line" />
-
-      <div className="detail" style={{ fontSize: "medium" }}>
-        <label className="label">Logs</label>
-        <div className="inner-detail log-box">
-          {productLogs.length
-            ? productLogs.map((logStr) => {
-                return <LogCard logStr={logStr} />;
-              })
-            : "No logs to display!"}
-        </div>
-      </div>
+      )}
     </div>
   );
 };

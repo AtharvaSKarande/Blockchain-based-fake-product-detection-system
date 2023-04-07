@@ -8,6 +8,7 @@ import "./css/SignUp.css";
 import "./css/AddProduct.css";
 import "./css/ProductDetails.css";
 import "./css/Products.css";
+import "./css/ProductCard.css";
 
 const App = () => {
   return (

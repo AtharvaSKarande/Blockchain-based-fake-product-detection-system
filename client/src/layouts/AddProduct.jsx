@@ -1,7 +1,7 @@
 import React from "react";
 import AddNewProductForm from "../Components/AddNewProductForm";
 
-const AddProduct = () => {
+const AddProduct = ({ signedUserKey, updateLayout }) => {
   return (
     <div className="input-add-product">
       <h2 className="d-flex justify-content-center fw-bold mt-3 ">
