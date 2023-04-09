@@ -8,22 +8,25 @@ const Home = ({ signedUserKey, isCompany, updateLayout }) => {
         <h2 className="d-flex justify-content-center fw-bold mt-3">
           Welcome to Product Chain application!
         </h2>
-        <div
-          className="d-flex fw-bold my-3 mx-3"
-          style={{ textAlign: "justify" }}
-        >
-          <h5>
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-          </h5>
+        <div className=" fw-bold my-3 mx-3" style={{ textAlign: "justify" }}>
+          <div className="desc-text">
+            &emsp;&emsp;&emsp;Want to make sure the products you bought from
+            online sites/local stores are genuine? The product chain is here.
+            Product Chain is a blockchain-based decentralized application(Dapp)
+            that works on an Ethereum smart contract and has data of products
+            manufactured by different
+            manufacturing companies. With the trustless, secure, highly
+            available features of blockchain, you can verify the product you
+            have purchased is a genuine product or can transfer your product to
+            your friend in a few clicks. Join us to stop the circulation of
+            duplicate/fake products in the market.
+          </div>
+          <div className="desc-text">
+            &emsp;&emsp;&emsp;
+            {signedUserKey
+              ? "Enter the product key of your product in search box to check genuninty."
+              : "Get start by logging in to Product chain."}
+          </div>
         </div>
       </div>
     );
@@ -69,7 +72,7 @@ const Home = ({ signedUserKey, isCompany, updateLayout }) => {
           className="btn btn-dark mx-5 my-2"
           onClick={seeAllProductsClicked}
         >
-          See all owned products
+          See my all products
         </button>
         {isCompany && (
           <button
@@ -101,7 +104,7 @@ const Home = ({ signedUserKey, isCompany, updateLayout }) => {
   };
 
   return (
-    <div className="description">
+    <div className="description-box">
       {/* Description */}
       <Description />
 

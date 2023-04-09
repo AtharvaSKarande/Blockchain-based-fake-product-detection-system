@@ -35,7 +35,7 @@
 }
 
 .GR {
-  background-color: rgba(81, 255, 116, 0.6);
+  background-color: rgba(120, 255, 120, 0.6);
 }
 
 .GW {
@@ -44,4 +44,17 @@
 
 .F {
   background-color: rgba(255, 100, 100, 0.6);
+}
+
+.fab-transfer {
+  border-color: #00000000;
+  padding-top: 1px;
+  background-color: rgb(179, 212, 255);
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: x-large;
+  position: absolute;
+  bottom: 50px;
+  left: 10px;
 }
