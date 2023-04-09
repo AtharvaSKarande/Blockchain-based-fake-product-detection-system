@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import useEth from "../contexts/EthContext/useEth";
+
+import Layout from "../Constants/Layout";
 
 const Signup = ({ updateLayout }) => {
+  const {
+    state: { contract, accounts },
+  } = useEth();
+
   const [isCompany, setIsCompany] = useState(false);
 
   const [userName, setUserName] = useState("");
@@ -47,7 +54,89 @@ const Signup = ({ updateLayout }) => {
     setIsCompany(event.target.checked);
   };
 
-  const signUpClick = () => {};
+  const allFieldsValidated = () => {
+    if (companyName.length == 0) {
+      console.log("Company name can't be empty!");
+      return 0;
+    }
+    if (companyWebsite.length == 0) {
+      console.log("Company website can't be empty!");
+      return 0;
+    }
+    if (companyEmail.length == 0) {
+      console.log("Company email can't be empty!");
+      return 0;
+    }
+    if (companyContact.length == 0) {
+      console.log("Company contact no. can't be empty!");
+      return 0;
+    }
+    if (companyDesc.length == 0) {
+      console.log("Company description can't be empty!");
+      return 0;
+    }
+    return 1;
+  };
+
+  const signUpClick = async () => {
+    if (isCompany) {
+      if (allFieldsValidated()) {
+        const allCompanies = await contract.methods
+          .getAllCompanies()
+          .call({ from: accounts[0] });
+
+        const companyKey = accounts[0];
+
+        if (allCompanies.includes(companyKey)) {
+          console.log("Company already exist.");
+        } else {
+          try {
+            await contract.methods
+              .companySignUp(
+                companyKey,
+                companyName,
+                companyDesc,
+                false,
+                companyEmail,
+                companyContact,
+                companyWebsite
+              )
+              .send({ from: accounts[0] });
+
+            console.log("Company sign up successful.");
+            updateLayout(Layout.HOME_LAYOUT);
+          } catch (error) {
+            console.log("Error occured while processing the transaction.");
+          }
+        }
+      }
+    } else {
+      if (userName.length) {
+        const allUsers = await contract.methods
+          .getAllUsers()
+          .call({ from: accounts[0] });
+
+        const userKey = accounts[0];
+
+        if (allUsers.includes(userKey)) {
+          console.log("User already exist.");
+        } else {
+          try {
+            await contract.methods
+              .userSignUp(userKey, userName)
+              .send({ from: accounts[0] });
+
+            console.log("User sign up successful.");
+            updateLayout(Layout.HOME_LAYOUT);
+          } catch (error) {
+            console.log("Error occured while processing the transaction.");
+          }
+        }
+      } else {
+        console.log("Username can't be empty.");
+      }
+    }
+  };
 
   return (
     <div className="signup-input-box">
