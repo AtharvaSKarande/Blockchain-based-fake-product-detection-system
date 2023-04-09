@@ -1,29 +1,87 @@
 import React, { useState } from "react";
+import useEth from "../contexts/EthContext/useEth";
+import HTTPRespCodes from "../Constants/HTTPRespCodes";
 
 const AddNewProductForm = () => {
+  const {
+    state: { contract, accounts },
+  } = useEth();
+
   const [productId, setProductId] = useState("");
   const [productName, setProductName] = useState("");
   const [productType, setProductType] = useState("");
   const [productDesc, setProductDesc] = useState("");
 
-  const handleProductIdChange = (event) => {
+  const handleProductIdInput = (event) => {
     setProductId(event.target.value);
   };
 
-  const handleProductNameChange = (event) => {
+  const handleProductNameInput = (event) => {
     setProductName(event.target.value);
   };
 
-  const handleProductTypeChange = (event) => {
+  const handleProductTypeInput = (event) => {
     setProductType(event.target.value);
   };
 
-  const handleProductDescriptionChange = (event) => {
+  const handleProductDescriptionInput = (event) => {
     setProductDesc(event.target.value);
   };
 
-  const addProductClick = (event) => {
+  const allFieldsValidated = () => {
+    if (productId.length == 0) {
+      console.log("Product ID can not be empty.");
+      return 0;
+    }
+    if (productName.length == 0) {
+      console.log("Product name can not be empty.");
+      return 0;
+    }
+    if (productDesc.length == 0) {
+      console.log("Product description can not be empty.");
+      return 0;
+    }
+    return 1;
+  };
+
+  const resetFields = () => {
+    setProductId("");
+    setProductName("");
+    setProductType("");
+    setProductDesc("");
+  };
+
+  const addProductClick = async (event) => {
     event.preventDefault();
+    if (allFieldsValidated()) {
+      const companyKey = accounts[0];
+
+      try {
+        const response = await contract.methods
+          .registerProduct(
+            productId,
+            productName,
+            accounts[0],
+            productDesc,
+            productType
+          )
+          .send({ from: accounts[0] });
+
+        const apiResponse = response.events.e_registerProduct.returnValues;
+
+        if (apiResponse[0] == HTTPRespCodes.HTTP_RESPONSE_CREATED) {
+          console.log("New product registered succesfully.");
+
+          navigator.clipboard.writeText(apiResponse[2]);
+          console.log("New product key copied to clipboard!");
+          resetFields();
+        } else {
+          console.log("ERROR", apiResponse[1]);
+        }
+      } catch (error) {
+        console.log("Error occured while processing the transaction.");
+      }
+    }
   };
 
   return (
@@ -38,7 +96,8 @@ const AddNewProductForm = () => {
             type="text"
             id="productId"
             placeholder="Enter your product's unique id"
-            onChange={handleProductIdChange}
+            value={productId}
+            onInput={handleProductIdInput}
           ></input>
         </div>
 
@@ -51,7 +110,8 @@ const AddNewProductForm = () => {
             type="text"
             id="productName"
             placeholder="Enter product name"
-            onChange={handleProductNameChange}
+            value={productName}
+            onInput={handleProductNameInput}
           ></input>
         </div>
 
@@ -64,7 +124,8 @@ const AddNewProductForm = () => {
             type="text"
             id="productType"
             placeholder="Enter product type"
-            onChange={handleProductTypeChange}
+            value={productType}
+            onInput={handleProductTypeInput}
           ></input>
         </div>
       </div>
@@ -78,7 +139,8 @@ const AddNewProductForm = () => {
           id="productDescription"
           rows="3"
           placeholder="Describe the product for user ..."
-          onChange={handleProductDescriptionChange}
+          value={productDesc}
+          onInput={handleProductDescriptionInput}
         ></textarea>
       </div>
 

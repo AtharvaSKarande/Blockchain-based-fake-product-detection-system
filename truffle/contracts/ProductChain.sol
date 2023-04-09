@@ -176,7 +176,7 @@ contract ProductChain {
             userList[companyKey].products.push(productUID);
             registeredProducts[productDataHash] = productUID;
 
-            emit e_registerProduct(HTTP_RESPONSE_CREATED, "New product created.", productUID);
+            emit e_registerProduct(HTTP_RESPONSE_CREATED, "New product registed.", productUID);
         }
     }
 
