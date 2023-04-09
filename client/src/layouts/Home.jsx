@@ -1,7 +1,13 @@
 import React from "react";
 import Layouts from "../Constants/Layout";
+import useEth from "../contexts/EthContext/useEth";
+import CookConst from "../Constants/CookConst";
 
-const Home = ({ signedUserKey, isCompany, updateLayout }) => {
+const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
+  const {
+    state: { contract, accounts },
+  } = useEth();
+
   const Description = () => {
     return (
       <div>
@@ -87,9 +93,43 @@ const Home = ({ signedUserKey, isCompany, updateLayout }) => {
     );
   };
 
-  const userLoginClick = () => {};
+  const userLoginClick = async () => {
+    const allUsers = await contract.methods
+      .getAllUsers()
+      .call({ from: accounts[0] });
 
-  const companyLoginClick = () => {};
+    const userKey = accounts[0];
+
+    if (allUsers.includes(userKey)) {
+      console.log("User signed in successfully.");
+      setCookie(CookConst.COOKIE_KEY_SIGNED_USER_KEY, userKey);
+      setCookie(CookConst.COOKIE_KEY_IS_COMPANY, false);
+      window.location.reload();
+    } else {
+      console.log(
+        "This ETH key is not registed as user in Product chain blockchain. Please sign up first."
+      );
+    }
+  };
+
+  const companyLoginClick = async () => {
+    const allCompanies = await contract.methods
+      .getAllCompanies()
+      .call({ from: accounts[0] });
+
+    const companyKey = accounts[0];
+
+    if (allCompanies.includes(companyKey)) {
+      console.log("Company signed in successfully.");
+      setCookie(CookConst.COOKIE_KEY_SIGNED_USER_KEY, companyKey);
+      setCookie(CookConst.COOKIE_KEY_IS_COMPANY, true);
+      window.location.reload();
+    } else {
+      console.log(
+        "This ETH key is not registed as company in Product chain blockchain. Please sign up first."
+      );
+    }
+  };
 
   const signUpClick = () => {
     updateLayout(Layouts.SIGN_UP_LAYOUT);

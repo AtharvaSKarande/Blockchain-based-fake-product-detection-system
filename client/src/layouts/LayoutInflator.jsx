@@ -1,8 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
 import useEth from "../contexts/EthContext/useEth";
 import logo from "../../public/images/logo.png";
 import Layouts from "../Constants/Layout";
+import CookConst from "../Constants/CookConst";
 
 import Home from "./Home";
 import Signup from "./Signup";
@@ -13,11 +15,29 @@ import Products from "./Products";
 import SearchBar from "../Components/SearchBar";
 
 const LayoutInflator = () => {
+  const [cookies, setCookie] = useCookies([
+    CookConst.COOKIE_KEY_SIGNED_USER_KEY,
+    CookConst.COOKIE_KEY_IS_COMPANY,
+  ]);
+
   const { state } = useEth();
   const [layout, setLayout] = useState(Layouts.HOME_LAYOUT);
   const [signedUserKey, setSignedUserKey] = useState(null);
   const [isCompany, setIsCompany] = useState(false);
   const [productKey, setProductKey] = useState(null);
+
+  useEffect(() => {
+    if (
+      cookies[CookConst.COOKIE_KEY_SIGNED_USER_KEY] != null &&
+      cookies[CookConst.COOKIE_KEY_SIGNED_USER_KEY] != CookConst.NULL
+    ) {
+      setSignedUserKey(cookies[CookConst.COOKIE_KEY_SIGNED_USER_KEY]);
+    }
+
+    if (cookies[CookConst.COOKIE_KEY_IS_COMPANY] == CookConst.TRUE) {
+      setIsCompany(true);
+    }
+  }, []);
 
   const updateLayout = (newLayout, prodKey = null) => {
     if (prodKey) setProductKey(prodKey);
@@ -101,8 +121,9 @@ const LayoutInflator = () => {
   };
 
   const logOutClick = () => {
-    setSignedUserKey(null);
-    setLayout(Layouts.HOME_LAYOUT);
+    setCookie(CookConst.COOKIE_KEY_SIGNED_USER_KEY, CookConst.NULL);
+    setCookie(CookConst.COOKIE_KEY_IS_COMPANY, CookConst.NULL);
+    window.location.reload();
   };
 
   const backButtonClicked = () => {
@@ -135,6 +156,7 @@ const LayoutInflator = () => {
             signedUserKey={signedUserKey}
             isCompany={isCompany}
             updateLayout={updateLayout}
+            setCookie={setCookie}
           />
         )}
         {layout == Layouts.SIGN_UP_LAYOUT && (
