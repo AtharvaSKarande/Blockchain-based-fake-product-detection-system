@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import useEth from "../contexts/EthContext/useEth";
 
 import Layout from "../Constants/Layout";
+import ToastConfig from "../Constants/ToastConfig";
 
 const Signup = ({ updateLayout }) => {
   const {
@@ -56,23 +58,23 @@ const Signup = ({ updateLayout }) => {
 
   const allFieldsValidated = () => {
     if (companyName.length == 0) {
-      console.log("Company name can't be empty!");
+      toast.warning("Company name can not be empty!", ToastConfig.WARNING);
       return 0;
     }
     if (companyWebsite.length == 0) {
-      console.log("Company website can't be empty!");
+      toast.warning("Company website can not be empty!");
       return 0;
     }
     if (companyEmail.length == 0) {
-      console.log("Company email can't be empty!");
+      toast.warning("Company email can not be empty!");
       return 0;
     }
     if (companyContact.length == 0) {
-      console.log("Company contact no. can't be empty!");
+      toast.warning("Company contact no. can not be empty!");
       return 0;
     }
     if (companyDesc.length == 0) {
-      console.log("Company description can't be empty!");
+      toast.warning("Company description can not be empty!");
       return 0;
     }
     return 1;
@@ -88,7 +90,10 @@ const Signup = ({ updateLayout }) => {
         const companyKey = accounts[0];
 
         if (allCompanies.includes(companyKey)) {
-          console.log("Company already exist.");
+          toast.error(
+            "Company already exist with your ETH key.",
+            ToastConfig.ERROR
+          );
         } else {
           try {
             await contract.methods
@@ -106,7 +111,10 @@ const Signup = ({ updateLayout }) => {
             console.log("Company sign up successful.");
             updateLayout(Layout.HOME_LAYOUT);
           } catch (error) {
-            console.log("Error occured while processing the transaction.");
+            toast.error(
+              "Error occured while processing the transaction.",
+              ToastConfig.ERROR
+            );
           }
         }
       }
@@ -133,7 +141,7 @@ const Signup = ({ updateLayout }) => {
           }
         }
       } else {
-        console.log("Username can't be empty.");
+        console.log("Username can not be empty.");
       }
     }
   };

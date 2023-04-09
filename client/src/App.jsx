@@ -1,7 +1,8 @@
 import { EthProvider } from "./contexts/EthContext";
-import Test from "./components/Test";
+import { ToastContainer } from "react-toastify";
 import LayoutInflator from "./layouts/LayoutInflator";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./css/Inflator.css";
 import "./css/Home.css";
 import "./css/SignUp.css";
@@ -15,7 +16,7 @@ const App = () => {
     <EthProvider>
       <div id="App">
         <LayoutInflator />
-        {/* <Test /> */}
+        <ToastContainer />
       </div>
     </EthProvider>
   );

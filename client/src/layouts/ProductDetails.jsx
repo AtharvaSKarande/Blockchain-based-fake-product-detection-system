@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
+import useEth from "../contexts/EthContext/useEth";
+
 import LogCard from "../Components/LogCard";
 
 import Remarks from "../Constants/Remarks";
 import OwnerRemarks from "../Constants/OwnerRemarks";
 
 const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
+  const {
+    state: { contract, accounts },
+  } = useEth();
+
   const DEFAULT_STR = "Fetching...";
 
   const [remark, setRemark] = useState(Remarks.UNKNOWN);
@@ -19,6 +25,18 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
   const [productLogs, setProductLogs] = useState([]);
 
   useEffect(() => {
+    //0x1e908ecfd92e750c42f4b4322588f15fe80b92ed5d7f85afdea86ded6d4c18bb
+    //0x6dd16cb7d8cebb992c4a8784ece4320456e4c5b587fa55e31f60211b786dda5b
+
+    const fetchData = async () => {
+      const response = await contract.methods
+        .getProduct(productKey)
+        .call({ from: accounts[0] });
+
+      console.log(response);
+    };
+    fetchData();
+
     // Fetch data from blockchain and set.
   }, [productKey]);
 
