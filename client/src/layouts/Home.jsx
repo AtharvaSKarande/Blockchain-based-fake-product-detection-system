@@ -2,6 +2,8 @@ import React from "react";
 import Layouts from "../Constants/Layout";
 import useEth from "../contexts/EthContext/useEth";
 import CookConst from "../Constants/CookConst";
+import { toast } from "react-toastify";
+import ToastConfig from "../Constants/ToastConfig";
 
 const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
   const {
@@ -101,13 +103,13 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
     const userKey = accounts[0];
 
     if (allUsers.includes(userKey)) {
-      console.log("User signed in successfully.");
       setCookie(CookConst.COOKIE_KEY_SIGNED_USER_KEY, userKey);
       setCookie(CookConst.COOKIE_KEY_IS_COMPANY, false);
       window.location.reload();
     } else {
-      console.log(
-        "This ETH key is not registed as user in Product chain blockchain. Please sign up first."
+      toast.error(
+        "This ETH key is not registed as user in Product chain blockchain. Please sign up first.",
+        ToastConfig.ERROR
       );
     }
   };
@@ -120,13 +122,13 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
     const companyKey = accounts[0];
 
     if (allCompanies.includes(companyKey)) {
-      console.log("Company signed in successfully.");
       setCookie(CookConst.COOKIE_KEY_SIGNED_USER_KEY, companyKey);
       setCookie(CookConst.COOKIE_KEY_IS_COMPANY, true);
       window.location.reload();
     } else {
-      console.log(
-        "This ETH key is not registed as company in Product chain blockchain. Please sign up first."
+      toast.error(
+        "This ETH key is not registed as company in Product chain blockchain. Please sign up first.",
+        ToastConfig.ERROR
       );
     }
   };

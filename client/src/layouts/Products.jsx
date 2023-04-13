@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from "react";
+import useEth from "../contexts/EthContext/useEth";
 import ProductCard from "../Components/ProductCard";
 
 const Products = ({ signedUserKey, updateLayout }) => {
-  const [productList, setProductList] = useState([]);
+  const {
+    state: { contract, accounts },
+  } = useEth();
+
+  const [productIdList, setProductIdList] = useState([]);
 
   useEffect(() => {
-    // Fetch data from blockchain and set.
+    const fetchProductIds = async () => {
+      const pidList = await contract.methods
+        .getAllProducts(accounts[0])
+        .call({ from: accounts[0] });
+      setProductIdList(pidList);
+    };
+    fetchProductIds();
   }, [signedUserKey]);
 
   return (
     <div>
-      {productList.length ? (
+      {productIdList.length ? (
         <div className="products-box">
-          <h3>Total products : {productList.length}</h3>
+          <h3>Total products : {productIdList.length}</h3>
           <div className="products-card-deck">
-            {productList.map((productKey) => {
+            {productIdList.map((productKey) => {
               return (
                 <ProductCard
                   productKey={productKey}

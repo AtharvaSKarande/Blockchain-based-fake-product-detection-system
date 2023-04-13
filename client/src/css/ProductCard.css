@@ -16,14 +16,19 @@
 }
 
 .product-card-header {
-  font-size: large;
+  font-size: x-large;
   padding-bottom: 1.5%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.product-card-title {
+.product-card-type {
   padding-top: 1.5%;
-  font-size: x-large;
-  white-space: nowrap;
+  font-size: large;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-wrap: initial;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -35,7 +40,6 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  min-height: 77px;
   word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;

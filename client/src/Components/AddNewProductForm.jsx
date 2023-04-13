@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import useEth from "../contexts/EthContext/useEth";
 import HTTPRespCodes from "../Constants/HTTPRespCodes";
+import { toast } from "react-toastify";
+import ToastConfig from "../Constants/ToastConfig";
 
 const AddNewProductForm = () => {
   const {
@@ -30,15 +32,18 @@ const AddNewProductForm = () => {
 
   const allFieldsValidated = () => {
     if (productId.length == 0) {
-      console.log("Product ID can not be empty.");
+      toast.warning("Product ID can not be empty.", ToastConfig.WARNING);
       return 0;
     }
     if (productName.length == 0) {
-      console.log("Product name can not be empty.");
+      toast.warning("Product name can not be empty.", ToastConfig.WARNING);
       return 0;
     }
     if (productDesc.length == 0) {
-      console.log("Product description can not be empty.");
+      toast.warning(
+        "Product description can not be empty.",
+        ToastConfig.WARNING
+      );
       return 0;
     }
     return 1;
@@ -70,16 +75,27 @@ const AddNewProductForm = () => {
         const apiResponse = response.events.e_registerProduct.returnValues;
 
         if (apiResponse[0] == HTTPRespCodes.HTTP_RESPONSE_CREATED) {
-          console.log("New product registered succesfully.");
+          toast.success(
+            "New product registered succesfully.",
+            ToastConfig.SUCCESS
+          );
 
-          navigator.clipboard.writeText(apiResponse[2]);
-          console.log("New product key copied to clipboard!");
+          var prodcutKey = apiResponse[2];
+          navigator.clipboard.writeText(prodcutKey);
+          toast.success(
+            "Product key copied to clipboard!",
+            ToastConfig.SUCCESS
+          );
           resetFields();
+          console.log(`Product Key : ${prodcutKey}.`);
         } else {
-          console.log("ERROR", apiResponse[1]);
+          toast.error("ERROR: " + apiResponse[1], ToastConfig.ERROR);
         }
       } catch (error) {
-        console.log("Error occured while processing the transaction.");
+        toast.error(
+          "Error occured while processing the transaction.",
+          ToastConfig.ERROR
+        );
       }
     }
   };

@@ -13,6 +13,8 @@ import AddProduct from "./AddProduct";
 import Products from "./Products";
 
 import SearchBar from "../Components/SearchBar";
+import { toast } from "react-toastify";
+import ToastConfig from "../Constants/ToastConfig";
 
 const LayoutInflator = () => {
   const [cookies, setCookie] = useCookies([
@@ -32,12 +34,30 @@ const LayoutInflator = () => {
       cookies[CookConst.COOKIE_KEY_SIGNED_USER_KEY] != CookConst.NULL
     ) {
       setSignedUserKey(cookies[CookConst.COOKIE_KEY_SIGNED_USER_KEY]);
-    }
 
-    if (cookies[CookConst.COOKIE_KEY_IS_COMPANY] == CookConst.TRUE) {
-      setIsCompany(true);
+      if (cookies[CookConst.COOKIE_KEY_IS_COMPANY] == CookConst.TRUE) {
+        setIsCompany(true);
+
+        if (cookies[CookConst.COOKIE_SIGN_IN_ALERT] != CookConst.TRUE) {
+          setCookie(CookConst.COOKIE_SIGN_IN_ALERT, CookConst.TRUE);
+          displayWelcomeMessage(true);
+        }
+      } else {
+        if (cookies[CookConst.COOKIE_SIGN_IN_ALERT] != CookConst.TRUE) {
+          setCookie(CookConst.COOKIE_SIGN_IN_ALERT, CookConst.TRUE);
+          displayWelcomeMessage(false);
+        }
+      }
     }
   }, []);
+
+  const displayWelcomeMessage = (isCompany) => {
+    if (isCompany) {
+      toast.success(`Company signed in successfully!`, ToastConfig.SUCCESS);
+    } else {
+      toast.success(`User signed in successfully!`, ToastConfig.SUCCESS);
+    }
+  };
 
   const updateLayout = (newLayout, prodKey = null) => {
     if (prodKey) setProductKey(prodKey);
@@ -123,6 +143,7 @@ const LayoutInflator = () => {
   const logOutClick = () => {
     setCookie(CookConst.COOKIE_KEY_SIGNED_USER_KEY, CookConst.NULL);
     setCookie(CookConst.COOKIE_KEY_IS_COMPANY, CookConst.NULL);
+    setCookie(CookConst.COOKIE_SIGN_IN_ALERT, CookConst.NULL);
     window.location.reload();
   };
 

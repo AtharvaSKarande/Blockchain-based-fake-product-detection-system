@@ -1,4 +1,4 @@
-const ToastConfing = {
+const ToastConfig = {
   ERROR: {
     autoClose: 5000,
   },
@@ -10,4 +10,4 @@ const ToastConfing = {
   },
 };
 
-export default ToastConfing;
+export default ToastConfig;

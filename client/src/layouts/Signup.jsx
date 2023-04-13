@@ -62,19 +62,25 @@ const Signup = ({ updateLayout }) => {
       return 0;
     }
     if (companyWebsite.length == 0) {
-      toast.warning("Company website can not be empty!");
+      toast.warning("Company website can not be empty!", ToastConfig.WARNING);
       return 0;
     }
     if (companyEmail.length == 0) {
-      toast.warning("Company email can not be empty!");
+      toast.warning("Company email can not be empty!", ToastConfig.WARNING);
       return 0;
     }
     if (companyContact.length == 0) {
-      toast.warning("Company contact no. can not be empty!");
+      toast.warning(
+        "Company contact no. can not be empty!",
+        ToastConfig.WARNING
+      );
       return 0;
     }
     if (companyDesc.length == 0) {
-      toast.warning("Company description can not be empty!");
+      toast.warning(
+        "Company description can not be empty!",
+        ToastConfig.WARNING
+      );
       return 0;
     }
     return 1;
@@ -91,7 +97,7 @@ const Signup = ({ updateLayout }) => {
 
         if (allCompanies.includes(companyKey)) {
           toast.error(
-            "Company already exist with your ETH key.",
+            "Company already exist on Product Chain blockchain with your ETH wallet key.",
             ToastConfig.ERROR
           );
         } else {
@@ -108,7 +114,7 @@ const Signup = ({ updateLayout }) => {
               )
               .send({ from: accounts[0] });
 
-            console.log("Company sign up successful.");
+            toast.success("Company sign up successful.", ToastConfig.SUCCESS);
             updateLayout(Layout.HOME_LAYOUT);
           } catch (error) {
             toast.error(
@@ -127,21 +133,27 @@ const Signup = ({ updateLayout }) => {
         const userKey = accounts[0];
 
         if (allUsers.includes(userKey)) {
-          console.log("User already exist.");
+          toast.error(
+            "User already exist on Product Chain blockchain with your ETH wallet key.",
+            ToastConfig.ERROR
+          );
         } else {
           try {
             await contract.methods
               .userSignUp(userKey, userName)
               .send({ from: accounts[0] });
 
-            console.log("User sign up successful.");
+            toast.success("User sign up successful.", ToastConfig.SUCCESS);
             updateLayout(Layout.HOME_LAYOUT);
           } catch (error) {
-            console.log("Error occured while processing the transaction.");
+            toast.error(
+              "Error occured while processing the transaction.",
+              ToastConfig.ERROR
+            );
           }
         }
       } else {
-        console.log("Username can not be empty.");
+        toast.warning("Username can not be empty.", ToastConfig.WARNING);
       }
     }
   };
