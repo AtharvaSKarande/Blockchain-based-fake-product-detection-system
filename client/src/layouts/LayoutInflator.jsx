@@ -23,10 +23,17 @@ const LayoutInflator = () => {
   ]);
 
   const { state } = useEth();
+  const [checkForEth, setCheckForEth] = useState(false);
   const [layout, setLayout] = useState(Layouts.HOME_LAYOUT);
   const [signedUserKey, setSignedUserKey] = useState(null);
   const [isCompany, setIsCompany] = useState(false);
   const [productKey, setProductKey] = useState(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCheckForEth(true);
+    }, 1000);
+  }, []);
 
   useEffect(() => {
     if (
@@ -69,16 +76,16 @@ const LayoutInflator = () => {
       <div className="error banner">
         {!state.artifact ? (
           <div className="flicker">
-            <i className="bi bi-exclamation-circle mx-1"></i>Cannot find Product
-            Chain contract artifact. Please check the MetaMask wallet connection
-            and try again.
+            <i className="bi bi-exclamation-circle mx-1 svg-black"></i>Cannot
+            find Product Chain contract artifact. Please check the MetaMask
+            wallet connection and try again.
           </div>
         ) : !state.contract ? (
           <div className="flicker">
-            <i className="bi bi-exclamation-triangle mx-1"></i> Smart contract
-            Product Chain not found on the network to which MetaMask wallet is
-            connected. Please make sure that you are connected to the correct
-            network.
+            <i className="bi bi-exclamation-triangle mx-1 svg-black"></i> Smart
+            contract Product Chain not found on the network to which MetaMask
+            wallet is connected. Please make sure that you are connected to the
+            correct network.
           </div>
         ) : (
           <div></div>
@@ -119,7 +126,7 @@ const LayoutInflator = () => {
     return (
       <div>
         <button className="fab-back" onClick={backButtonClicked}>
-          <i className="bi bi-arrow-left-circle"></i>
+          <i className="bi bi-arrow-left"></i>
         </button>
       </div>
     );
@@ -155,7 +162,7 @@ const LayoutInflator = () => {
   return (
     <div className="row g-0 container-fluid">
       {/* Connection with smart contract. */}
-      <SmartContractConnectionState />
+      {checkForEth && <SmartContractConnectionState />}
       {/* Header */}
       <Header />
       {/* Back Button */}

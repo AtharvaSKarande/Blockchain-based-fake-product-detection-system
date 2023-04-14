@@ -1,9 +1,9 @@
 .details-box {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 0.5%;
   margin: 0% 2% 0% 2%;
   color: #292b2c;
-  font-weight: bold;
+  font-weight: normal;
   font-size: large;
   border-radius: 10px;
   text-align: center;
@@ -22,10 +22,23 @@
   padding: 0% 0.5% 0.5% 0.5%;
 }
 
+.ownership-detail {
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  margin: 0.5%;
+  padding: 0% 0.5% 0.5% 0.5%;
+  transition: all 0.2s ease-in-out;
+}
+
+.ownership-detail:hover {
+  scale: 1.1 1.25;
+}
+
 .inner-detail {
   text-align: center;
   border-radius: 2px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 0.5%;
 }
 
@@ -35,7 +48,7 @@
 }
 
 .GR {
-  background-color: rgba(120, 255, 120, 0.6);
+  background-color: #8039f1af;
 }
 
 .GW {
@@ -46,15 +59,38 @@
   background-color: rgba(255, 100, 100, 0.6);
 }
 
+.tmp {
+  justify-content: center;
+  display: flex;
+  border: none;
+  background-color: #a3b9ff;
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  margin: 0.75%;
+  position: absolute;
+}
+
 .fab-transfer {
-  border-color: #00000000;
+  border: none;
   padding-top: 1px;
-  background-color: rgb(179, 212, 255);
-  width: 40px;
-  height: 40px;
+  background-color: #303134;
+  width: 45px;
+  height: 45px;
   border-radius: 5px;
   font-size: x-large;
+  top: 10%;
+  right: 1%;
   position: absolute;
-  bottom: 50px;
-  left: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.fab-transfer:hover {
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 5px 5px;
+  z-index: 100;
+}
+
+.log-card {
+  padding: 0.5%;
+  border-radius: 5px;
 }

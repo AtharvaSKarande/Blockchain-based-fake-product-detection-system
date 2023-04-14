@@ -39,6 +39,10 @@
   }
 }
 
+.svg-black {
+  color: black;
+}
+
 .header {
   font-weight: bolder;
   font-style: italic;
@@ -48,20 +52,27 @@
 }
 
 .fab-back {
-  justify-content: center;
-  display: flex;
-  border-color: #00000000;
-  background-color: #a3b9ff;
+  border: none;
+  padding-top: 1px;
+  background-color: #303134;
   width: 45px;
   height: 45px;
-  border-radius: 10px;
-  margin: 0.75%;
+  border-radius: 5px;
+  font-size: x-large;
+  top: 10%;
+  left: 1%;
   position: absolute;
+  transition: all 0.2s ease-in-out;
+}
+
+.fab-back:hover {
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 5px 5px;
+  z-index: 100;
 }
 
 .search-box {
   font-size: x-large;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   width: 50%;
   margin: 2% auto 2% auto;

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import Layouts from "../Constants/Layout";
+import ToastConfig from "../Constants/ToastConfig";
 
 const SearchBar = ({ updateLayout, setProductKey }) => {
   const [searchText, setSearchText] = useState("");
@@ -10,13 +12,17 @@ const SearchBar = ({ updateLayout, setProductKey }) => {
 
   const searchProductClicked = (e) => {
     e.preventDefault();
-    setProductKey(searchText);
-    updateLayout(Layouts.PRODUCT_DETAILS_LAYOUT);
+    if (searchText.length) {
+      setProductKey(searchText);
+      updateLayout(Layouts.PRODUCT_DETAILS_LAYOUT);
+    } else {
+      toast.warning("Enter the product key first!", ToastConfig.WARNING);
+    }
   };
 
   return (
     <form onSubmit={searchProductClicked}>
-      <div className="search-box navbar ">
+      <div className="search-box navbar">
         <i className="bi bi-search mx-3"></i>
         <input
           className="search-input"
@@ -25,7 +31,7 @@ const SearchBar = ({ updateLayout, setProductKey }) => {
         />
         <button
           type="submit"
-          className="btn btn-dark mx-2"
+          className="btn btn-outline-secondary mx-2"
           onClick={searchProductClicked}
         >
           Check

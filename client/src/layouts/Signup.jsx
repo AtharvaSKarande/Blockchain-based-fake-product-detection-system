@@ -268,7 +268,7 @@ const Signup = ({ updateLayout }) => {
         <div className="d-flex justify-content-center fw-bold mx-1 my-1">
           <button
             type="button"
-            className="btn btn-dark mx-4"
+            className="btn btn-outline-light  mx-4"
             onClick={signUpClick}
           >
             {isCompany ? "Company Sign up" : "Sign up to Product Chain"}

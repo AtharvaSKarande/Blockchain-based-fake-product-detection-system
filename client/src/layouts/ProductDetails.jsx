@@ -122,17 +122,7 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
   };
 
   return (
-    <div
-      className={
-        remark == Remarks.GENUINE
-          ? ownerRemark == OwnerRemarks.CORRECT_OWNER
-            ? "details-box GR"
-            : "details-box GW"
-          : remark == Remarks.FAKE
-          ? "details-box F"
-          : "details-box"
-      }
-    >
+    <div className="details-box">
       <div className="subtitle">Product Key : {productKey} </div>
 
       {remark != Remarks.FAKE ? (
@@ -144,7 +134,14 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
               <div className="inner-detail">{remark}</div>
             </div>
 
-            <div className="col detail">
+            <div
+              className={
+                remark == Remarks.GENUINE &&
+                (ownerRemark == OwnerRemarks.CORRECT_OWNER
+                  ? "col ownership-detail GR"
+                  : "col ownership-detail GW")
+              }
+            >
               <label className="label">Ownership</label>
               <div className="inner-detail">{ownerRemark}</div>
             </div>

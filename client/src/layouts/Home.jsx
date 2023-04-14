@@ -46,14 +46,14 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
         <div className="d-flex justify-content-center fw-bold mx-3 my-3">
           <button
             type="button"
-            className="btn btn-dark mx-4"
+            className="btn btn-outline-light  mx-4"
             onClick={userLoginClick}
           >
             User Login
           </button>
           <button
             type="button"
-            className="btn btn-dark mx-4"
+            className="btn btn-outline-light  mx-4"
             onClick={companyLoginClick}
           >
             Company Login
@@ -77,7 +77,7 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
       <div className="d-flex justify-content-center">
         <button
           type="button"
-          className="btn btn-dark mx-5 my-2"
+          className="btn btn-outline-light mx-5 my-2"
           onClick={seeAllProductsClicked}
         >
           See my all products
@@ -85,7 +85,7 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
         {isCompany && (
           <button
             type="button"
-            className="btn btn-dark mx-5 my-2"
+            className="btn btn-outline-light mx-5 my-2"
             onClick={addNewProductClicked}
           >
             Add a new product

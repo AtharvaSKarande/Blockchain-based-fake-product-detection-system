@@ -163,7 +163,7 @@ const AddNewProductForm = () => {
       <div className="d-flex justify-content-center fw-bold mx-1 my-1">
         <button
           type="submit"
-          className="btn btn-dark mx-4"
+          className="btn btn-outline-light  mx-4"
           onClick={addProductClick}
         >
           Add product
