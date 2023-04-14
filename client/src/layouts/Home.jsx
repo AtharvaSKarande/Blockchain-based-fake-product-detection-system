@@ -108,7 +108,7 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
       window.location.reload();
     } else {
       toast.error(
-        "This ETH key is not registed as user in Product chain blockchain. Please sign up first.",
+        "Your Ethereum wallet key is not registed as user in Product chain blockchain. Please sign up first.",
         ToastConfig.ERROR
       );
     }
@@ -127,7 +127,7 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
       window.location.reload();
     } else {
       toast.error(
-        "This ETH key is not registed as company in Product chain blockchain. Please sign up first.",
+        "Your Ethereum wallet key is not registed as company in Product chain blockchain. Please sign up first.",
         ToastConfig.ERROR
       );
     }

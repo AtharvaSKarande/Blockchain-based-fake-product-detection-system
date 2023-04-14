@@ -5,6 +5,9 @@ import LogCard from "../Components/LogCard";
 
 import Remarks from "../Constants/Remarks";
 import OwnerRemarks from "../Constants/OwnerRemarks";
+import HTTPRespCodes from "../Constants/HTTPRespCodes";
+import { toast } from "react-toastify";
+import ToastConfig from "../Constants/ToastConfig";
 
 const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
   const {
@@ -14,31 +17,62 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
   const DEFAULT_STR = "Fetching...";
 
   const [remark, setRemark] = useState(Remarks.UNKNOWN);
-  const [ownerRemark, setOwnerRemark] = useState(OwnerRemarks.UNKNOWN);
+  const [ownerRemark, setOwnerRemark] = useState(OwnerRemarks.WRONG_OWNER);
 
   const [productName, setProductName] = useState(DEFAULT_STR);
   const [productUID, setProductUID] = useState(DEFAULT_STR);
+  const [productCompanyKey, setProductCompanyKey] = useState(DEFAULT_STR);
   const [productCompanyName, setProductCompanyName] = useState(DEFAULT_STR);
   const [productDesc, setProductDesc] = useState(DEFAULT_STR);
   const [productType, setProductType] = useState(DEFAULT_STR);
   const [productOwnerKey, setProductOwnerKey] = useState(DEFAULT_STR);
   const [productLogs, setProductLogs] = useState([]);
 
+  // Get and Set the product.
   useEffect(() => {
-    //0x1e908ecfd92e750c42f4b4322588f15fe80b92ed5d7f85afdea86ded6d4c18bb
-    //0x6dd16cb7d8cebb992c4a8784ece4320456e4c5b587fa55e31f60211b786dda5b
-
     const fetchData = async () => {
       const response = await contract.methods
         .getProduct(productKey)
         .call({ from: accounts[0] });
 
-      console.log(response);
+      // Remark
+      if (response.name == "") {
+        setRemark(Remarks.FAKE);
+      } else {
+        setRemark(Remarks.GENUINE);
+      }
+      console.log(response.ownerKey);
+
+      setProductName(response.name);
+      setProductUID(response.productId);
+      setProductCompanyKey(response.companyKey);
+      setProductDesc(response.description);
+      setProductType(response.productType);
+      setProductOwnerKey(response.ownerKey);
+      setProductLogs(response.logs);
     };
     fetchData();
-
-    // Fetch data from blockchain and set.
   }, [productKey]);
+
+  // Company Name
+  useEffect(() => {
+    const setCompany = async () => {
+      if (productCompanyKey != DEFAULT_STR) {
+        const company = await contract.methods
+          .getCompany(productCompanyKey)
+          .call({ from: accounts[0] });
+        setProductCompanyName(company.name);
+      }
+    };
+    setCompany();
+  }, [productCompanyKey]);
+
+  // Owner Remark
+  useEffect(() => {
+    if (productOwnerKey == accounts[0])
+      setOwnerRemark(OwnerRemarks.CORRECT_OWNER);
+    else setOwnerRemark(OwnerRemarks.WRONG_OWNER);
+  }, [productOwnerKey]);
 
   const TransferOwnershipButton = () => {
     return (
@@ -53,7 +87,7 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
     );
   };
 
-  const transferOwnrshipButtonClicked = () => {
+  const transferOwnrshipButtonClicked = async () => {
     var newUserKey = window.prompt(
       "Enter the wallet key of the user to which you want to transfer the ownership of this product."
     );
@@ -62,7 +96,27 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
         `Do you really want to transfer ownership to user ${newUserKey} ?`
       );
       if (confirmation) {
-        //@@ Transfer ownership.
+        try {
+          const response = await contract.methods
+            .transferOwnership(productKey, accounts[0], newUserKey)
+            .send({ from: accounts[0] });
+
+          const apiResponse = response.events.e_transferOwnership.returnValues;
+
+          if (apiResponse[0] == HTTPRespCodes.HTTP_RESPONSE_ERROR)
+            toast.error(`ERROR : ${apiResponse[1]}`, ToastConfig.ERROR);
+          else if (apiResponse[0] == HTTPRespCodes.HTTP_RESPONSE_UNAUTHORISED)
+            toast.error(`UNAUTHORISED : ${apiResponse[1]}`, ToastConfig.ERROR);
+          else if (apiResponse[0] == HTTPRespCodes.HTTP_RESPONSE_SUCCESS) {
+            toast.success(apiResponse[1], ToastConfig.SUCCESS);
+            setOwnerRemark(OwnerRemarks.WRONG_OWNER);
+          }
+        } catch (error) {
+          toast.error(
+            "Error occured while processing the transaction.",
+            ToastConfig.ERROR
+          );
+        }
       }
     }
   };
@@ -132,7 +186,7 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
             <div className="inner-detail log-box">
               {productLogs.length
                 ? productLogs.map((logStr) => {
-                    return <LogCard logStr={logStr} />;
+                    return <LogCard logStr={logStr} key={logStr} />;
                   })
                 : "No logs to display!"}
             </div>

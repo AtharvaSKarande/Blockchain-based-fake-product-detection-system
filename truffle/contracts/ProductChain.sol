@@ -184,10 +184,10 @@ contract ProductChain {
     event e_transferOwnership(string, string);
     function transferOwnership(string memory productKey, address user1Key, address user2Key) public{
         if(strEqual(userList[user1Key].name, "")){
-            emit e_transferOwnership(HTTP_RESPONSE_ERROR, "User 1 does not exist.");
+            emit e_transferOwnership(HTTP_RESPONSE_ERROR, "Owner key does not exist.");
         }
-        else if(strEqual(userList[user1Key].name, "")){
-            emit e_transferOwnership(HTTP_RESPONSE_ERROR, "User 2 does not exist.");
+        else if(strEqual(userList[user2Key].name, "")){
+            emit e_transferOwnership(HTTP_RESPONSE_ERROR, "User to which you are wishing to transfer the product, desn't exist.");
         }
         else if(productList[productKey].ownerKey == user1Key){
 
@@ -210,7 +210,7 @@ contract ProductChain {
             emit e_transferOwnership(HTTP_RESPONSE_SUCCESS, "Product ownership trasnfered.");
         }
         else{
-            emit e_transferOwnership(HTTP_RESPONSE_UNAUTHORISED, "User 1 is not the owner of a given product.");
+            emit e_transferOwnership(HTTP_RESPONSE_UNAUTHORISED, "Owner key provided doesn't match with product's owner key.");
         }
     }
 
