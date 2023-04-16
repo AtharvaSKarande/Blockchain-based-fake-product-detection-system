@@ -3,7 +3,7 @@ import AddNewProductForm from "../Components/AddNewProductForm";
 
 const AddProduct = ({ signedUserKey, updateLayout }) => {
   return (
-    <div className="input-add-product">
+    <div className="add-product-box">
       <h2 className="d-flex justify-content-center fw-bold mt-3 ">
         Add a new product to Product Chain
       </h2>

@@ -1,5 +1,5 @@
 .product-card {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 1%;
   margin: 0.5%;
@@ -10,7 +10,7 @@
 }
 
 .product-card:hover {
-  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 10px 10px;
+  box-shadow: #0077ff 0px 0px 4px 0px, #01f5ff 0px 0px 12px 0px;
   z-index: 100;
 }
 

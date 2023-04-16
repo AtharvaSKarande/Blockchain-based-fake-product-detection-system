@@ -1,5 +1,5 @@
 .products-box {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 1%;
   margin: 4%;
   color: #292b2c;
@@ -16,7 +16,7 @@
 }
 
 .no-products-box {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 2% 2% 1% 2%;
   margin: 2% 25% 2% 25%;
   color: #292b2c;

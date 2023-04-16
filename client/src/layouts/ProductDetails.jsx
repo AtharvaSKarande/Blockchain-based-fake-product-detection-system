@@ -134,16 +134,16 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
               <div className="inner-detail">{remark}</div>
             </div>
 
-            <div
-              className={
-                remark == Remarks.GENUINE &&
-                (ownerRemark == OwnerRemarks.CORRECT_OWNER
-                  ? "col ownership-detail GR"
-                  : "col ownership-detail GW")
-              }
-            >
+            <div className="col detail">
               <label className="label">Ownership</label>
-              <div className="inner-detail">{ownerRemark}</div>
+              {remark == Remarks.GENUINE &&
+                (ownerRemark == OwnerRemarks.CORRECT_OWNER ? (
+                  <div className="inner-detail highlight">{ownerRemark}</div>
+                ) : (
+                  <div className="inner-detail" style={{ color: "#f00" }}>
+                    {ownerRemark}
+                  </div>
+                ))}
             </div>
 
             <div className="col detail">
@@ -198,7 +198,7 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
             xmlns="http://www.w3.org/2000/svg"
             width="200"
             height="200"
-            fill="#a00"
+            fill="#DC3545"
             className="bi bi-exclamation-circle"
             viewBox="0 0 16 16"
           >

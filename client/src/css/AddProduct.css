@@ -1,5 +1,5 @@
-.input-add-product {
-  background-color: rgba(255, 255, 255, 0.05);
+.add-product-box {
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 1%;
   margin: 2.5% 10% auto 10%;
   color: #343a40;
@@ -9,7 +9,7 @@
 }
 
 .add-product-input {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(0, 0, 0, 0.1);
   padding: 1%;
   margin: 1%;
   color: #343a40;

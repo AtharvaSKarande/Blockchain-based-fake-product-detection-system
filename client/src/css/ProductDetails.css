@@ -20,19 +20,11 @@
   border-radius: 4px;
   margin: 0.5%;
   padding: 0% 0.5% 0.5% 0.5%;
-}
-
-.ownership-detail {
-  text-align: left;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  margin: 0.5%;
-  padding: 0% 0.5% 0.5% 0.5%;
   transition: all 0.2s ease-in-out;
 }
 
-.ownership-detail:hover {
-  scale: 1.1 1.25;
+.detail:hover {
+  box-shadow: #0077ff 0px 0px 4px 0px, #01f5ff 0px 0px 12px 0px;
 }
 
 .inner-detail {
@@ -45,18 +37,6 @@
 .log-box {
   max-height: 150px;
   overflow-y: scroll;
-}
-
-.GR {
-  background-color: #8039f1af;
-}
-
-.GW {
-  background-color: rgba(238, 255, 0, 0.6);
-}
-
-.F {
-  background-color: rgba(255, 100, 100, 0.6);
 }
 
 .fab-transfer {
@@ -74,7 +54,7 @@
 }
 
 .fab-transfer:hover {
-  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 5px 5px;
+  box-shadow: #0077ff 0px 0px 4px 0px, #01f5ff 0px 0px 12px 0px;
   z-index: 100;
 }
 

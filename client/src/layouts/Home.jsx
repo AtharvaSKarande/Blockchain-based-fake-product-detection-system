@@ -14,17 +14,32 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
     return (
       <div>
         <h2 className="d-flex justify-content-center fw-bold mt-3">
-          Welcome to Product Chain application!
+          Welcome to{" "}
+          <span style={{ color: "#00b3ff", margin: "0rem 0.5rem 0rem 0.5rem" }}>
+            Product Chain
+          </span>{" "}
+          application!
         </h2>
         <div className=" fw-bold my-3 mx-3" style={{ textAlign: "justify" }}>
           <div className="desc-text">
             &emsp;&emsp;&emsp;Want to make sure the products you bought from
             online sites/local stores are genuine? The product chain is here.
             Product Chain is a{" "}
-            <a href="https://en.wikipedia.org/wiki/Blockchain" target="_blank">
+            <a
+              href="https://en.wikipedia.org/wiki/Blockchain"
+              target="_blank"
+              className="highlight"
+            >
               blockchain-based
             </a>{" "}
-            decentralized application(Dapp) that works on an Ethereum
+            decentralized application(Dapp) that works on an{" "}
+            <a
+              href="https://ethereum.org/en/"
+              target="_blank"
+              className="highlight"
+            >
+              Ethereum
+            </a>{" "}
             smart contract and has data of products manufactured by different
             manufacturing companies. With the trustless, secure, highly
             available features of blockchain, you can verify the product you
@@ -66,7 +81,7 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
         <div className="d-flex justify-content-center fw-bold mx-3">
           <h5>
             New to Product Chain?{" "}
-            <a className="link-primary" onClick={signUpClick}>
+            <a className="highlight" onClick={signUpClick}>
               Sign up
             </a>
           </h5>

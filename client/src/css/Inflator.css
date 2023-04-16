@@ -66,7 +66,7 @@
 }
 
 .fab-back:hover {
-  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 5px 5px;
+  box-shadow: #0077ff 0px 0px 4px 0px, #01f5ff 0px 0px 12px 0px;
   z-index: 100;
 }
 
@@ -76,6 +76,7 @@
   border-radius: 5px;
   width: 50%;
   margin: 2% auto 2% auto;
+  transition: all 0.2s ease-in-out;
 }
 
 .search-input {
@@ -83,6 +84,10 @@
   border: none;
   outline: none;
   width: 80%;
+}
+
+.search-box:hover {
+  box-shadow: #0077ff 0px 0px 4px 0px, #01f5ff 0px 0px 12px 0px;
 }
 
 .footer {
