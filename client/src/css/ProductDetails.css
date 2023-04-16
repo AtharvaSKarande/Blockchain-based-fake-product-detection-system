@@ -5,7 +5,7 @@
   color: #292b2c;
   font-weight: normal;
   font-size: large;
-  border-radius: 10px;
+  border-radius: 5px;
   text-align: center;
 }
 
@@ -57,18 +57,6 @@
 
 .F {
   background-color: rgba(255, 100, 100, 0.6);
-}
-
-.tmp {
-  justify-content: center;
-  display: flex;
-  border: none;
-  background-color: #a3b9ff;
-  width: 45px;
-  height: 45px;
-  border-radius: 10px;
-  margin: 0.75%;
-  position: absolute;
 }
 
 .fab-transfer {

@@ -179,7 +179,7 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
           </div>
           <hr className="line" />
           <div className="detail" style={{ fontSize: "medium" }}>
-            <label className="label">Logs</label>
+            <label className="label">Product Logs</label>
             <div className="inner-detail log-box">
               {productLogs.length
                 ? productLogs.map((logStr) => {

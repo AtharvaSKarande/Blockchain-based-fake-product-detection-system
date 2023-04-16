@@ -168,7 +168,7 @@ const Signup = ({ updateLayout }) => {
             User name
           </label>
           <input
-            className="form-control"
+            className="inp"
             type="text"
             id="userName"
             placeholder="Enter your name here"
@@ -185,7 +185,7 @@ const Signup = ({ updateLayout }) => {
                 Company name
               </label>
               <input
-                className="form-control"
+                className="inp"
                 type="text"
                 id="companyName"
                 placeholder="Enter company name here"
@@ -198,7 +198,7 @@ const Signup = ({ updateLayout }) => {
                 Company website
               </label>
               <input
-                className="form-control"
+                className="inp"
                 type="website"
                 id="website"
                 placeholder="www.example.com"
@@ -213,7 +213,7 @@ const Signup = ({ updateLayout }) => {
                 Email id
               </label>
               <input
-                className="form-control"
+                className="inp"
                 type="email"
                 id="email"
                 placeholder="example@email.com"
@@ -226,7 +226,7 @@ const Signup = ({ updateLayout }) => {
                 Contact number
               </label>
               <input
-                className="form-control"
+                className="inp"
                 type="text"
                 id="contactNo"
                 placeholder="0000-000-000"
@@ -240,7 +240,7 @@ const Signup = ({ updateLayout }) => {
               Description
             </label>
             <textarea
-              className="form-control"
+              className="inp"
               id="description"
               rows="3"
               placeholder="Tell us something about your company ..."

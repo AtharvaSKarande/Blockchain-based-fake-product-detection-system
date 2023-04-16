@@ -72,8 +72,8 @@
 
 .search-box {
   font-size: x-large;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
   width: 50%;
   margin: 2% auto 2% auto;
 }

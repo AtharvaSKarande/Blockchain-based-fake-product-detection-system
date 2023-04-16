@@ -20,9 +20,12 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
           <div className="desc-text">
             &emsp;&emsp;&emsp;Want to make sure the products you bought from
             online sites/local stores are genuine? The product chain is here.
-            Product Chain is a blockchain-based decentralized application(Dapp)
-            that works on an Ethereum smart contract and has data of products
-            manufactured by different
+            Product Chain is a{" "}
+            <a href="https://en.wikipedia.org/wiki/Blockchain" target="_blank">
+              blockchain-based
+            </a>{" "}
+            decentralized application(Dapp) that works on an Ethereum
+            smart contract and has data of products manufactured by different
             manufacturing companies. With the trustless, secure, highly
             available features of blockchain, you can verify the product you
             have purchased is a genuine product or can transfer your product to

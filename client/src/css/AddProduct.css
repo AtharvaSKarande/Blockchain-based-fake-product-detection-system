@@ -5,7 +5,7 @@
   color: #343a40;
   font-weight: bold;
   font-size: 20px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .add-product-input {
@@ -14,7 +14,7 @@
   margin: 1%;
   color: #343a40;
   font-weight: bold;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .label {

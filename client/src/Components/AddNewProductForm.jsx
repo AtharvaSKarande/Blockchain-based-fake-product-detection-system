@@ -80,14 +80,14 @@ const AddNewProductForm = () => {
             ToastConfig.SUCCESS
           );
 
-          var prodcutKey = apiResponse[2];
-          navigator.clipboard.writeText(prodcutKey);
+          var productKey = apiResponse[2];
+          navigator.clipboard.writeText(productKey);
           toast.success(
             "Product key copied to clipboard!",
             ToastConfig.SUCCESS
           );
           resetFields();
-          console.log(`Product Key : ${prodcutKey}.`);
+          console.log(`Product Key : ${productKey}.`);
         } else {
           toast.error("ERROR: " + apiResponse[1], ToastConfig.ERROR);
         }
@@ -108,7 +108,7 @@ const AddNewProductForm = () => {
             Product id
           </label>
           <input
-            className="form-control"
+            className="inp"
             type="text"
             id="productId"
             placeholder="Enter your product's unique id"
@@ -122,7 +122,7 @@ const AddNewProductForm = () => {
             Product's Name
           </label>
           <input
-            className="form-control"
+            className="inp"
             type="text"
             id="productName"
             placeholder="Enter product name"
@@ -136,7 +136,7 @@ const AddNewProductForm = () => {
             Product type (Optional)
           </label>
           <input
-            className="form-control"
+            className="inp"
             type="text"
             id="productType"
             placeholder="Enter product type"
@@ -151,7 +151,7 @@ const AddNewProductForm = () => {
           Description
         </label>
         <textarea
-          className="form-control"
+          className="inp"
           id="productDescription"
           rows="3"
           placeholder="Describe the product for user ..."

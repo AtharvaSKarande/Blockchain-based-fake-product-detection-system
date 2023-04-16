@@ -13,8 +13,8 @@
   padding: 1%;
   margin: 2% auto 1% auto;
   width: 50%;
-  font-weight: bold;
-  border-radius: 10px;
+  font-weight: normal;
+  border-radius: 5px;
 }
 
 .input-form-company {
@@ -22,8 +22,8 @@
   padding: 1%;
   margin: 0.75%;
   color: #343a40;
-  font-weight: bold;
-  border-radius: 10px;
+  font-weight: normal;
+  border-radius: 5px;
 }
 
 .label {
