@@ -9,7 +9,7 @@ import HTTPRespCodes from "../Constants/HTTPRespCodes";
 import { toast } from "react-toastify";
 import ToastConfig from "../Constants/ToastConfig";
 
-const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
+const ProductDetails = ({ productKey }) => {
   const {
     state: { contract, accounts },
   } = useEth();
@@ -22,6 +22,7 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
   const [productName, setProductName] = useState(DEFAULT_STR);
   const [productUID, setProductUID] = useState(DEFAULT_STR);
   const [productCompanyKey, setProductCompanyKey] = useState(DEFAULT_STR);
+  const [companyVerified, setCompanyVerified] = useState(false);
   const [productCompanyName, setProductCompanyName] = useState(DEFAULT_STR);
   const [productDesc, setProductDesc] = useState(DEFAULT_STR);
   const [productType, setProductType] = useState(DEFAULT_STR);
@@ -41,7 +42,6 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
       } else {
         setRemark(Remarks.GENUINE);
       }
-      console.log(response.ownerKey);
 
       setProductName(response.name);
       setProductUID(response.productId);
@@ -62,6 +62,7 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
           .getCompany(productCompanyKey)
           .call({ from: accounts[0] });
         setProductCompanyName(company.name);
+        setCompanyVerified(company.isVerified);
       }
     };
     setCompany();
@@ -148,7 +149,12 @@ const ProductDetails = ({ signedUserKey, productKey, updateLayout }) => {
 
             <div className="col detail">
               <label className="label">Manufactured by</label>
-              <div className="inner-detail">{productCompanyName}</div>
+              <div className="inner-detail">
+                {productCompanyName}
+                {companyVerified && (
+                  <i className="bi bi-patch-check highlight mx-2"></i>
+                )}
+              </div>
             </div>
           </div>
           <hr className="line" />

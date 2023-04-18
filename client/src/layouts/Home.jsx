@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layouts from "../Constants/Layout";
 import useEth from "../contexts/EthContext/useEth";
 import CookConst from "../Constants/CookConst";
@@ -9,6 +9,19 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
   const {
     state: { contract, accounts },
   } = useEth();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const updateAdminState = async () => {
+      if (signedUserKey && contract) {
+        const adminKey = await contract.methods
+          .getAdminKey()
+          .call({ from: accounts[0] });
+        if (adminKey == accounts[0]) setIsAdmin(true);
+      }
+    };
+    updateAdminState();
+  }, [accounts]);
 
   const Description = () => {
     return (
@@ -109,6 +122,15 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
             Add a new product
           </button>
         )}
+        {isAdmin && (
+          <button
+            type="button"
+            className="btn btn-outline-light mx-5 my-2"
+            onClick={updateVerifiedStatusClicked}
+          >
+            Update verified status
+          </button>
+        )}
       </div>
     );
   };
@@ -161,6 +183,29 @@ const Home = ({ signedUserKey, isCompany, updateLayout, setCookie }) => {
 
   const addNewProductClicked = () => {
     updateLayout(Layouts.ADD_PRODUCT_LAYOUT);
+  };
+
+  const updateVerifiedStatusClicked = async () => {
+    var key = window.prompt("Enter the key of company :");
+    if (key != null && key.length) {
+      var verificationStatus = window.prompt(
+        `Enter the verification status (✔ : VERIFIED / ❌ : any other response) for company ${key} :`
+      );
+      if (verificationStatus != null) {
+        verificationStatus = verificationStatus == "VERIFIED";
+        await toast.promise(
+          contract.methods
+            .updateVerifiedStatus(key, verificationStatus)
+            .send({ from: accounts[0] }),
+          {
+            pending: "Updating verification status...",
+            success: "Verification status updated.",
+            error: "Error occured while processing the transaction.",
+          },
+          ToastConfig.PROMISE
+        );
+      }
+    }
   };
 
   return (

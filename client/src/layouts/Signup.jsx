@@ -22,9 +22,12 @@ const Signup = ({ updateLayout }) => {
 
   const SignUpTitle = () => {
     return (
-      <h2 className="d-flex justify-content-center fw-bold mt-3 ">
-        {isCompany ? "Company Sign Up" : "New user Sign Up"}
-      </h2>
+      <h3 className="d-flex justify-content-center fw-bold mt-3 ">
+        <span style={{ color: "#00b3ff", margin: "0rem 0.5rem 0rem 0.5rem" }}>
+          {isCompany ? "Company" : "User"}
+        </span>
+        Sign Up
+      </h3>
     );
   };
 
@@ -179,7 +182,7 @@ const Signup = ({ updateLayout }) => {
 
       {isCompany && (
         <div>
-          <div className="row">
+          <div className="row" style={{ marginTop: "2%" }}>
             <div className="col input-form-company">
               <label className="label" htmlFor="companyName">
                 Company name
@@ -271,7 +274,7 @@ const Signup = ({ updateLayout }) => {
             className="btn btn-outline-light  mx-4"
             onClick={signUpClick}
           >
-            {isCompany ? "Company Sign up" : "Sign up to Product Chain"}
+            {isCompany ? "Company Sign Up" : "Sign Up to Product Chain"}
           </button>
         </div>
       </div>

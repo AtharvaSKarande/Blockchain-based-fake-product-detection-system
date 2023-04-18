@@ -33,6 +33,7 @@ contract ProductChain {
     /* Lists of signed up companies and users. */
     address[] public companyAddresses;
     address[] public userAddresses;
+    address public ADMIN_KEY;
 
     /* Mappings */
     mapping (address => Company) private companyList;
@@ -60,6 +61,11 @@ contract ProductChain {
         string memory emailId, string memory contactNo, string memory website) public {
         
         if(strEqual(companyList[companyKey].name, "")){
+            // First company will be Admin.
+            if(companyAddresses.length == 0){
+                isVerified = true;
+                ADMIN_KEY = companyKey;
+            }
 
             Company memory newCompany = Company({
                 name: name,
@@ -102,17 +108,21 @@ contract ProductChain {
         }
     }
 
-    // Email verified field update API. (Company)
-    event e_emailVerified(string, string);
-    function emailVerified(address companyKey, bool verified) public {
+    // Verification field update API. (Company)
+    event e_updateVerifiedStatus(string, string);
+    function updateVerifiedStatus(address companyKey, bool verified) public {
         
         if(!strEqual(companyList[companyKey].name, "")){
             companyList[companyKey].isVerified = verified;
-            emit e_emailVerified(HTTP_RESPONSE_SUCCESS, "Updated the email verification status.");
+            emit e_updateVerifiedStatus(HTTP_RESPONSE_SUCCESS, "Verified status updated.");
         }
         else{
-            emit e_emailVerified(HTTP_RESPONSE_NOT_FOUND, "Company with given key does not exist.");
+            emit e_updateVerifiedStatus(HTTP_RESPONSE_NOT_FOUND, "Company with given key does not exist.");
         }
+    }
+
+    function getAdminKey() public view returns(address) {
+        return ADMIN_KEY;
     }
 
     function getUser(address userKey) public view returns (User memory){

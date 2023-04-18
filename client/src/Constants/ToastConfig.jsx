@@ -11,6 +11,9 @@ const ToastConfig = {
     autoClose: 2000,
     theme: "dark",
   },
+  PROMISE: {
+    theme: "dark",
+  },
 };
 
 export default ToastConfig;
